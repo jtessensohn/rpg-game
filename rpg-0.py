@@ -28,7 +28,6 @@ def main():
         if user_input == "1":
             # Hero attacks goblin
             my_hero.attack(goblin)
-            print("You do %d damage to the goblin." % my_hero.power)
             if goblin.health <= 0:
                 print("The goblin is dead.")
         elif user_input == "2":
