@@ -1,6 +1,7 @@
 # from hero import Hero
 # from goblin import Goblin
-from character import Character, Hero, Goblin
+from character import Character, Hero, Goblin, Medic, Shadow, Zombie
+from random import randrange
 
 """
 In this simple RPG game, the hero fights the goblin. He has the options to:
@@ -13,23 +14,30 @@ In this simple RPG game, the hero fights the goblin. He has the options to:
 
 def main():
     my_hero = Hero()
-    goblin = Goblin()
-
-    while goblin.alive() and my_hero.alive():
+    enemy = randrange(4)
+    if enemy == 0:
+        enemy = Goblin()
+    elif enemy == 1:
+        enemy = Medic()
+    elif enemy == 2:
+        enemy = Shadow()
+    elif enemy == 3:
+        enemy = Zombie
+    while enemy.alive() and my_hero.alive():
         my_hero.status()
-        goblin.status()
+        enemy.status()
         print()
         print("What do you want to do?")
-        print("1. fight goblin")
+        print(f"1. fight {enemy}")
         print("2. do nothing")
         print("3. flee")
         print("> ",)
         user_input = input()
         if user_input == "1":
             # Hero attacks goblin
-            my_hero.attack(goblin)
-            if goblin.health <= 0:
-                print("The goblin is dead.")
+            my_hero.attack(enemy)
+            if enemy.health <= 0:
+                print(f"The {enemy} is dead.")
         elif user_input == "2":
             pass
         elif user_input == "3":
@@ -38,10 +46,10 @@ def main():
         else:
             print("Invalid input %r" % user_input)
 
-        if goblin.health > 0:
+        if enemy.health > 0:
             # Goblin attacks hero
-            goblin.attack(my_hero)
-            print("The goblin does %d damage to you." % goblin.power)
+            enemy.attack(my_hero)
+            print(f"The {enemy} does {enemy.power} damage to you.")
             if my_hero.health <= 0:
                 print("You are dead.")
 
